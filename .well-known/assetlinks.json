@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.budgettracker",
+    "sha256_cert_fingerprints": [
+      "F0:4A:E1:AF:D8:9E:72:EF:10:FA:F4:71:3E:4A:F1:19:6C:CB:C2:9E:4A:E0:42:1E:DA:6F:4B:4A:8A:D2:99:90"
+    ]
+  }
+}]
