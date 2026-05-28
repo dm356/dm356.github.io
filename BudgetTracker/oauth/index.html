@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script>
+  // Forward the OAuth state back to Plaid's LinkRedirectActivity so it can
+  // signal LinkActivity that OAuth completed and deliver the result.
+  window.location.href = 'plaid://resume' + window.location.search;
+</script>
+</head>
 <body>
 <p>Redirecting back to BudgetTracker...</p>
 </body>
