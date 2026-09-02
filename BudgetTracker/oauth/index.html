@@ -4,7 +4,21 @@
 <script>
   // Forward the OAuth state back to Plaid's LinkRedirectActivity so it can
   // signal LinkActivity that OAuth completed and deliver the result.
-  window.location.href = 'plaid://resume' + window.location.search;
+  //
+  // Some institutions (e.g. PNC, routed through Akoya) bounce through this
+  // page more than once for the same oauth_state_id. Forwarding twice hands
+  // Plaid an already-consumed state id, which the SDK surfaces as a generic
+  // UNMAPPED_ERROR. Guard so each state id is only forwarded once per tab.
+  var params = window.location.search;
+  var stateMatch = params.match(/oauth_state_id=([^&]+)/);
+  var stateId = stateMatch ? stateMatch[1] : null;
+
+  if (stateId && sessionStorage.getItem('plaid_oauth_forwarded') === stateId) {
+    document.body.innerText = 'Already redirected — return to the BudgetTracker app.';
+  } else {
+    if (stateId) sessionStorage.setItem('plaid_oauth_forwarded', stateId);
+    window.location.href = 'plaid://resume' + params;
+  }
 </script>
 </head>
 <body>
